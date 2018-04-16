@@ -7,23 +7,53 @@
     tools:context="afeka.com.hw1.ChooseDifficultiesActivity">
 
 
-    <Button
-        android:id="@+id/btn_2x2"
-        android:layout_width="wrap_content"
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginTop="125dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="114dp"
-        android:text="2X2"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="85dp" />
+        android:orientation="vertical"
+        android:id="@+id/radioGroup">
+        <RadioButton android:id="@+id/mode_easy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/easy"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/mode_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medium"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/mode_hard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hard"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
 
     <Button
         android:id="@+id/game_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btn_2x2"
-        android:layout_below="@+id/btn_2x2"
-        android:layout_marginTop="28dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="103dp"
         android:text="Play!" />
+
+    <TextView
+        android:id="@+id/name_fld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/age_fld"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/age_fld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/name_fld"
+        android:layout_marginEnd="40dp" />
+
+
 </RelativeLayout>

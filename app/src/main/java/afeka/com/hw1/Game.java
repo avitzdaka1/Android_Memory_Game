@@ -12,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,15 +23,17 @@ import java.util.Iterator;
 
 public class Game extends AppCompatActivity {
 
+    private String name;
+    private int age;
+    private int points = 0;
+    private int gameMode;
+    private int index = 0;
 
-    int gameMode = 3;
-    int index = 0;
+    private TextView nameField;
+    private TextView ageField;
 
-    ArrayList<ImageView> list;
-
-    ArrayList<Integer> cardArray;
-
-    ArrayList<Integer> imageData;
+    private ArrayList<ImageView> list;
+    private ArrayList<Integer> imageData;
 
     int firstCard,secondCard;
 
@@ -43,11 +46,21 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        nameField = (TextView) findViewById(R.id.name_fld);
+        ageField = (TextView) findViewById(R.id.age_fld);
+
+        Intent intent = getIntent();
+        gameMode = intent.getExtras().getInt("mode");
+        name = intent.getStringExtra("name");
+        age = intent.getExtras().getInt("age");
+
+        nameField.setText(name);
+        ageField.setText(String.valueOf(age));
+
         LinearLayout gamePanel = (LinearLayout) findViewById(R.id.rows);
         gamePanel.setWeightSum(gameMode);
 
         list = new ArrayList<>(gameMode * gameMode);
-        cardArray = new ArrayList<>(gameMode * gameMode);
         imageData = new ArrayList<>(gameMode * gameMode);
 
 
@@ -65,9 +78,6 @@ public class Game extends AppCompatActivity {
 
                         int id = Integer.parseInt(String.valueOf(i)+String.valueOf(j));
                         String imgName = "img_" + id;
-
-                       // cardArray.add((i+1)*100 + j+1);
-                        cardArray.add(index);
 
                         ImageView img = new ImageView(this);
                         img.setImageResource(R.drawable.img_back);
@@ -177,6 +187,7 @@ public class Game extends AppCompatActivity {
         if(firstCard == secondCard){
             list.get(idFirst).setActivated(true);
             list.get(idSecond).setActivated(true);
+            points++;
         }
 
             for(ImageView iv:list) {
@@ -192,18 +203,17 @@ public class Game extends AppCompatActivity {
 
     }
     private void checkEnd(){
-        boolean finish = true;
+        boolean finish = false;
 
-        for(ImageView im:list)
-            if(!im.isActivated())
-                finish = false;
-
-        if(finish){
+       if(points == gameMode*gameMode/2){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Game.this);
             alertDialogBuilder.setMessage("YOU WIN!!!!").setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i){
                     Intent intent = new Intent(getApplicationContext(),Game.class);
+                    intent.putExtra("name",name);
+                    intent.putExtra("age",age);
+                    intent.putExtra("mode",gameMode);
                     startActivity(intent);
                     finish();
                 }
