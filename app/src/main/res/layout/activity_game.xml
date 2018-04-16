@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/age_fld"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        style="@style/GreenText"/>
 
     <TextView
         android:id="@+id/age_fld"
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/name_fld"
-        android:layout_marginEnd="40dp" />
+        android:layout_marginEnd="40dp"
+        style="@style/GreenText"/>
 
 
     <LinearLayout

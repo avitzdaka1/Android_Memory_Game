@@ -28,8 +28,8 @@ public class ChooseDifficultiesActivity extends AppCompatActivity {
         nameField = (TextView) findViewById(R.id.name_fld);
         ageField = (TextView) findViewById(R.id.age_fld);
 
-        nameField.setText(name);
-        ageField.setText(String.valueOf(age));
+        nameField.setText("Your name: " + name);
+        ageField.setText("Your age: " + String.valueOf(age));
 
         playBtn = (Button) findViewById(R.id.game_btn);
 

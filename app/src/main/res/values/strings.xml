@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HW1</string>
+    <string name="app_name">Android Memory Game</string>
     <string name="easy">Easy mode - 2x2  - 30 seconds to accomplish!</string>
     <string name="medium">Medium difficulty -4x4  - 45 seconds to accomplish!</string>
     <string name="hard">Hard difficulty - 5x5  - 1 minute to accomplish!</string>

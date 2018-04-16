@@ -54,8 +54,8 @@ public class Game extends AppCompatActivity {
         name = intent.getStringExtra("name");
         age = intent.getExtras().getInt("age");
 
-        nameField.setText(name);
-        ageField.setText(String.valueOf(age));
+        nameField.setText("Your name: " + name);
+        ageField.setText("Your age: " + String.valueOf(age));
 
         LinearLayout gamePanel = (LinearLayout) findViewById(R.id.rows);
         gamePanel.setWeightSum(gameMode);
@@ -105,15 +105,6 @@ public class Game extends AppCompatActivity {
        for(ImageView img:list){
            img.setOnClickListener(imgListener);
        }
-
-        //   for(int i = 0 ; i < gameMode ; i ++)
-         //      for(int j = 0 ; j < gameMode ; j ++){
-          //     list.set(idx++,(ImageView) findViewById(getResources().getIdentifier(String.valueOf(i) + String.valueOf(j),"id",getPackageName())));
-
-         //   }
-
-
-
     }
 
     private View.OnClickListener imgListener = new View.OnClickListener(){
