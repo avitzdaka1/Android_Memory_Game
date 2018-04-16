@@ -123,8 +123,6 @@ public class Game extends AppCompatActivity {
                 if(v.getId() == list.get(i).getId()){
                     int theCard =  (int)v.getTag();
                     doStuff(list.get(i),theCard);
-                    String str = "Button number: " + v.getId();
-                    Toast.makeText(Game.this,str,Toast.LENGTH_SHORT).show();
                 }
             }
         }
