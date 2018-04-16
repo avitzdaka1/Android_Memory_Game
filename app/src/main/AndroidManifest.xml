@@ -16,7 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChooseDifficultiesActivity"></activity>
+        <activity android:name=".ChooseDifficultiesActivity" />
+        <activity android:name=".Game4x4" />
+        <activity android:name=".Game5x5" />
+        <activity android:name=".Game2x2" />
+        <activity android:name=".Game"></activity>
     </application>
 
 </manifest>
