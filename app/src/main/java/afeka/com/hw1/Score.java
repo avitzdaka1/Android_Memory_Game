@@ -1,11 +1,16 @@
 package afeka.com.hw1;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 public class Score {
     private String userName;
     private int gameMode;
     private double score;
 
+
     public Score(){
+
 
     }
 
@@ -19,5 +24,5 @@ public class Score {
     public void setScore(double score){
         this.score = score;
     }
-    
+
 }
