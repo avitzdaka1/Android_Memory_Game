@@ -26,6 +26,7 @@ public class Game extends AppCompatActivity {
     private int points = 0;
     private int gameMode;
     private int index = 0;
+    boolean finish = false;
 
     private TextView nameField;
     private TextView ageField;
@@ -65,7 +66,7 @@ public class Game extends AppCompatActivity {
                 break;
         }
 
-        timer = new MyTimer(timerDuration*1000, 1000) {
+        timer = new MyTimer(timerDuration*1000, 1000, finish) {
 
             public void onTick(long millisUntilFinished) {
                 tmr.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -211,30 +212,36 @@ public class Game extends AppCompatActivity {
     }
 
     private void checkEnd() {
-        boolean finish = false;
-
         if (points == gameMode * gameMode / 2) {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Game.this);
-            alertDialogBuilder.setMessage("You Win! Time taken to complete: " + ((MyTimer)timer).getRemainTime() +  " seconds!").setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(getApplicationContext(), Game.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("age", age);
-                    intent.putExtra("mode", gameMode);
-                    startActivity(intent);
-                    finish();
-                }
-            }).setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
-                }
-            });
-            timer.cancel();
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            finish = true;
         }
+
+        if(finish){
+            endGame();
+        }
+    }
+
+    private void endGame(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Game.this);
+        alertDialogBuilder.setMessage("You Win! Time taken to complete: " + ((MyTimer)timer).getRemainTime() +  " seconds!").setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(getApplicationContext(), Game.class);
+                intent.putExtra("name", name);
+                intent.putExtra("age", age);
+                intent.putExtra("mode", gameMode);
+                startActivity(intent);
+                finish();
+            }
+        }).setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        timer.cancel();
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
@@ -244,15 +251,16 @@ public class Game extends AppCompatActivity {
 class MyTimer extends CountDownTimer{
     private long timeLeft;
     private long timerDuration;
-    public MyTimer(long millisInFuture, long countDownInterval) {
+    boolean finish;
+    public MyTimer(long millisInFuture, long countDownInterval,boolean finish) {
         super(millisInFuture, countDownInterval);
         timeLeft = millisInFuture;
         timerDuration = millisInFuture;
+        this.finish = finish;
     }
 
     @Override
     public void onTick(long l) {
-
     }
 
     @Override
@@ -261,8 +269,10 @@ class MyTimer extends CountDownTimer{
     }
     public void updateTime(long millis){
         timeLeft = millis;
+
     }
     public int getRemainTime(){
         return (int)(timerDuration - timeLeft)/1000;
+
     }
 }
