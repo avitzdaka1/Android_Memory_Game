@@ -4,7 +4,7 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 public class Score {
-    private String userName;
+    private String name;
     private int gameMode;
     private double score;
 
@@ -14,8 +14,8 @@ public class Score {
 
     }
 
-    public void setUserName(String userName){
-        this.userName = userName;
+    public void setUserName(String name){
+        this.name = name;
     }
 
     public void setGameMode(int gameMode){
@@ -23,6 +23,15 @@ public class Score {
     }
     public void setScore(double score){
         this.score = score;
+    }
+    public String getName(){
+        return name;
+    }
+    public double getScore(){
+        return score;
+    }
+    public int getGameMode(){
+        return gameMode;
     }
 
 }

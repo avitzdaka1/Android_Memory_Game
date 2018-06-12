@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context="afeka.com.hw1.Entrance">
 
+
+
     <EditText
         android:id="@+id/name_fld"
         android:layout_width="215dp"
@@ -56,6 +58,7 @@
         android:layout_marginStart="148dp"
         android:layout_marginTop="40dp"
         android:text="Submit"
+        app:layout_constraintBottom_toTopOf="@+id/leader_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_fld" />
 
@@ -69,5 +72,17 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/leader_btn"
+        android:layout_width="141dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="124dp"
+        android:text="LeaderBoard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit_btn" />
+
 
 </android.support.constraint.ConstraintLayout>

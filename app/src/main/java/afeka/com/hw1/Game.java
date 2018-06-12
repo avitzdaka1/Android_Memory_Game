@@ -8,25 +8,35 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Game extends AppCompatActivity {
 
     CountDownTimer timer;
     TextView tmr;
     int timerDuration;
-
+    private Score score;
     private String name;
     private int age;
     private int points = 0;
     private int gameMode;
     private int index = 0;
     boolean finish = false;
+    boolean isWin = false;
 
     private TextView nameField;
     private TextView ageField;
@@ -54,9 +64,13 @@ public class Game extends AppCompatActivity {
         name = intent.getStringExtra("name");
         age = intent.getExtras().getInt("age");
 
+        score = new Score();
+        score.setGameMode(gameMode);
+        score.setUserName(name);
+
         switch (gameMode){
             case 2:
-                timerDuration = 30;
+                timerDuration = 5;
                 break;
             case 4:
                 timerDuration = 45;
@@ -71,6 +85,11 @@ public class Game extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 tmr.setText("seconds remaining: " + millisUntilFinished / 1000);
                 updateTime(millisUntilFinished);
+                score.setScore(millisUntilFinished);
+                if (getRemainTime() < 1) {
+                    isWin = false;
+                    endGame();
+                }
             }
 
             public void onFinish() {
@@ -214,6 +233,7 @@ public class Game extends AppCompatActivity {
     private void checkEnd() {
         if (points == gameMode * gameMode / 2) {
             finish = true;
+            isWin = true;
         }
 
         if(finish){
@@ -221,27 +241,119 @@ public class Game extends AppCompatActivity {
         }
     }
 
-    private void endGame(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Game.this);
-        alertDialogBuilder.setMessage("You Win! Time taken to complete: " + ((MyTimer)timer).getRemainTime() +  " seconds!").setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(getApplicationContext(), Game.class);
-                intent.putExtra("name", name);
-                intent.putExtra("age", age);
-                intent.putExtra("mode", gameMode);
-                startActivity(intent);
-                finish();
+    private void endGame() {
+        if(isWin) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("PlayerScore");
+            query.whereEqualTo("GameMode", gameMode);
+            query.orderByDescending("Score");
+            query.setLimit(10);
+
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> scoreList, ParseException e) {
+
+                    if (scoreList.size() < 10) {
+                        ParseObject temp = new ParseObject("PlayerScore");
+                        temp.put("Name", score.getName());
+                        temp.put("GameMode", score.getGameMode());
+                        temp.put("Score", score.getScore());
+                        temp.saveInBackground();
+
+                    } else {
+                        if (scoreList.get(9).getDouble("Score") < score.getScore()) {
+                            scoreList.get(9).put("Name", score.getName());
+                            scoreList.get(9).put("Score", score.getScore());
+                            scoreList.get(9).saveInBackground();
+                        }
+
+                    }
+                }
+            });
+
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Game.this);
+            alertDialogBuilder.setMessage("You Win! Time taken to complete: " + ((MyTimer) timer).getTimeTaken() + " seconds!").setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(getApplicationContext(), Game.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("age", age);
+                    intent.putExtra("mode", gameMode);
+                    startActivity(intent);
+                    finish();
+                }
+            }).setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            timer.cancel();
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+    } else {
+            moveCard();
+            timer.cancel();
+
+        }
+    }
+
+    public void moveCard(){
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, 600);
+        animation.setDuration(500);
+        animation.setFillAfter(false);
+        animation.setAnimationListener(new MyAnimationListener(list));
+
+        for(ImageView card : list){
+            card.startAnimation(animation);
+        }
+    }
+    private class MyAnimationListener implements Animation.AnimationListener{
+        private ArrayList<ImageView> list;
+
+        public MyAnimationListener(ArrayList<ImageView> list){
+            this.list = list;
+        }
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            for(ImageView card : list){
+                card.clearAnimation();
+                card.setTranslationY(600);
             }
-        }).setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
-        timer.cancel();
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Game.this);
+            alertDialogBuilder.setMessage("You Loose! Try again...").setCancelable(false).setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(getApplicationContext(), Game.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("age", age);
+                    intent.putExtra("mode", gameMode);
+                    startActivity(intent);
+                    finish();
+                }
+            }).setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+        }
+
     }
 
 
@@ -261,6 +373,7 @@ class MyTimer extends CountDownTimer{
 
     @Override
     public void onTick(long l) {
+
     }
 
     @Override
@@ -271,8 +384,11 @@ class MyTimer extends CountDownTimer{
         timeLeft = millis;
 
     }
-    public int getRemainTime(){
+    public int getTimeTaken(){
         return (int)(timerDuration - timeLeft)/1000;
 
+    }
+    public int getRemainTime(){
+        return (int)timeLeft/1000;
     }
 }

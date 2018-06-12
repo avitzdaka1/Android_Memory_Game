@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:tag="leaderboard_list"
+    android:id="@+id/leaderboard_list"
+    >
+
+    <ListView
+        android:id="@+id/score_list"
+        android:layout_width="match_parent"
+        android:layout_height="416dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_mode_2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="147dp"
+        android:text="2x2"
+        app:layout_constraintBottom_toTopOf="@+id/score_list"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mode_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_mode_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="147dp"
+        android:text="4x4"
+        app:layout_constraintBottom_toTopOf="@+id/score_list"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mode_5"
+        app:layout_constraintStart_toEndOf="@+id/btn_mode_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_mode_5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="147dp"
+        android:text="5x5"
+        app:layout_constraintBottom_toTopOf="@+id/score_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_mode_4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leader_txt"
+        android:layout_width="370dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="30dp"
+        android:text="Leaderboard for 2x2 Game Mode"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/score_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
