@@ -70,7 +70,7 @@ public class Game extends AppCompatActivity {
 
         switch (gameMode){
             case 2:
-                timerDuration = 5;
+                timerDuration = 15;
                 break;
             case 4:
                 timerDuration = 45;

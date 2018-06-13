@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.support.v4.app.FragmentManager;
 
-public class LeaderboardMap extends SupportMapFragment implements OnMapReadyCallback {
+public class LeaderboardMap extends SupportMapFragment implements OnMapReadyCallback{
     private View view;
     private GoogleMap googleMap;
 
@@ -69,4 +69,6 @@ public class LeaderboardMap extends SupportMapFragment implements OnMapReadyCall
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll,zoom);
         googleMap.moveCamera(update);
     }
+
+
 }
