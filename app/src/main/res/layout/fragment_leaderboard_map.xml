@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     android:tag="leaderboard_map">
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="afeka.com.hw1.LeaderboardMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="178dp"
+        tools:layout_editor_absoluteY="241dp" />
 </android.support.constraint.ConstraintLayout>

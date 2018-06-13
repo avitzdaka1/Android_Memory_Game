@@ -9,28 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
-public class LeaderboardMap extends Fragment implements OnMapReadyCallback {
+public class LeaderboardMap extends SupportMapFragment{
     private View view;
     private GoogleMap googleMap;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_leaderboard_map,container,false);
-        initMap();
-        return view;
 
-    }
 
-    public void initMap(){
-     //   MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment);
-    //    mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
-    }
 }

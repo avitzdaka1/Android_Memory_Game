@@ -4,20 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeaderboardActivity">
+    tools:context=".LeaderboardActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:layout_editor_absoluteY="95dp" />
+        android:layout_height="600dp"
+      />
 
     <Button
         android:id="@+id/toggle_btn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="71dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="148dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>
