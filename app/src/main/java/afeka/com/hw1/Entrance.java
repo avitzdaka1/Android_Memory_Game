@@ -42,9 +42,9 @@ public class Entrance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrance);
-       // if(googleServicesAvailable()){
-       //     Toast.makeText(this,"Perfect!",Toast.LENGTH_LONG).show();
-       // }
+        if(googleServicesAvailable()){
+            Toast.makeText(this,"Perfect!",Toast.LENGTH_LONG).show();
+        }
         nameField = (EditText) findViewById(R.id.name_fld);
         ageField = (EditText) findViewById(R.id.age_fld);
 
@@ -84,7 +84,7 @@ public class Entrance extends AppCompatActivity {
             }
         });
     }
-/*
+
     public boolean googleServicesAvailable(){
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int isAvailable = api.isGooglePlayServicesAvailable(this);
@@ -100,7 +100,7 @@ public class Entrance extends AppCompatActivity {
         }
         return false;
     }
-    */
+
 
     private boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
