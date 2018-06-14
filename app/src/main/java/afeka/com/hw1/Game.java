@@ -15,8 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -37,6 +39,7 @@ public class Game extends AppCompatActivity {
     private int index = 0;
     boolean finish = false;
     boolean isWin = false;
+    private LatLng myLocation;
 
     private TextView nameField;
     private TextView ageField;
@@ -63,14 +66,17 @@ public class Game extends AppCompatActivity {
         gameMode = intent.getExtras().getInt("mode");
         name = intent.getStringExtra("name");
         age = intent.getExtras().getInt("age");
+        myLocation = (LatLng)intent.getExtras().get("location");
 
         score = new Score();
         score.setGameMode(gameMode);
         score.setUserName(name);
+        ParseGeoPoint coordinates = new ParseGeoPoint(myLocation.latitude,myLocation.longitude);
+        score.setCoordinates(coordinates);
 
         switch (gameMode){
             case 2:
-                timerDuration = 15;
+                timerDuration = 30;
                 break;
             case 4:
                 timerDuration = 45;
@@ -256,12 +262,14 @@ public class Game extends AppCompatActivity {
                         temp.put("Name", score.getName());
                         temp.put("GameMode", score.getGameMode());
                         temp.put("Score", score.getScore());
+                        temp.put("Coordinates",score.getCoordinates());
                         temp.saveInBackground();
 
                     } else {
                         if (scoreList.get(9).getDouble("Score") < score.getScore()) {
                             scoreList.get(9).put("Name", score.getName());
                             scoreList.get(9).put("Score", score.getScore());
+                            scoreList.get(9).put("Coordinates",score.getCoordinates());
                             scoreList.get(9).saveInBackground();
                         }
 
@@ -278,6 +286,7 @@ public class Game extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("age", age);
                     intent.putExtra("mode", gameMode);
+                    intent.putExtra("coordinates",myLocation);
                     startActivity(intent);
                     finish();
                 }
@@ -330,6 +339,7 @@ public class Game extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("age", age);
                     intent.putExtra("mode", gameMode);
+                    intent.putExtra("coordinates",myLocation);
                     startActivity(intent);
                     finish();
                 }

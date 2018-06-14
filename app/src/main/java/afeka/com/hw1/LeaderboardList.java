@@ -89,7 +89,7 @@ public class LeaderboardList extends Fragment {
                 temp.setUserName(++idx[ob.getInt("GameMode")] + ". " + ob.getString("Name"));
                 temp.setGameMode(ob.getInt("GameMode"));
                 temp.setScore(ob.getDouble("Score"));
-
+                temp.setCoordinates(ob.getParseGeoPoint("Coordinates"));
                 scoreList.get(temp.getGameMode()).add(temp);
 
             }

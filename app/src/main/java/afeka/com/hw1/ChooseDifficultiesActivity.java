@@ -10,6 +10,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class ChooseDifficultiesActivity extends AppCompatActivity {
     private String name;
     private int age;
@@ -18,6 +20,7 @@ public class ChooseDifficultiesActivity extends AppCompatActivity {
     private Button playBtn;
     private int checkedBUttonId;
     private int gameMode;
+    private LatLng myLocation;
 
     private RadioButton butt;
 
@@ -33,6 +36,7 @@ public class ChooseDifficultiesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         age = intent.getExtras().getInt("age");
+        myLocation = (LatLng) intent.getExtras().get("location");
         nameField = (TextView) findViewById(R.id.name_fld);
         ageField = (TextView) findViewById(R.id.age_fld);
 
@@ -78,6 +82,7 @@ public class ChooseDifficultiesActivity extends AppCompatActivity {
         intent.putExtra("mode",gameMode);
         intent.putExtra("name",name);
         intent.putExtra("age",age);
+        intent.putExtra("location",myLocation);
         startActivity(intent);
     }
 
