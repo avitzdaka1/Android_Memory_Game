@@ -6,6 +6,6 @@ Memory game application made with android studio for course project.
 - Google Maps
 - Leaderboard
 
-<img src="screenshots/1.png" height = 50%/>
+<img src="screenshots/1.png" width = 50% height = 50%/>
 <img src="screenshots/2.png" width="400" height="790"/>
 <img src="screenshots/3.png" width="400" height="790"/>
