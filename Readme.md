@@ -7,5 +7,5 @@ Memory game application made with android studio for course project.
 - Leaderboard
 
 <img src="screenshots/1.png" width="400" height="790"/>
-![alt text](screenshots/2.png)
-![alt text](screenshots/3.png)
+<img src="screenshots/2.png" width="400" height="790"/>
+<img src="screenshots/3.png" width="400" height="790"/>
