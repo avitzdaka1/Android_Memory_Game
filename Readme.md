@@ -6,3 +6,4 @@ Memory game application made with android studio for course project.
 - Google Maps
 - Leaderboard
 
+![alt text](screenshots/1.png)
